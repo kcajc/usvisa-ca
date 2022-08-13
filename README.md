@@ -1,4 +1,4 @@
-# An extremely simple Python script for making US visa interview appointment in Canada
+# An Extremely Simple Python Script for Making US Visa Interview Appointment in Canada
 ## Setup
 Make sure you have booked an appointment on https://ais.usvisa-info.com/en-ca/.
 
