@@ -18,3 +18,11 @@ Run the script:
 ```
 $ python3 findslot.py
 ```
+## Optimization
+Use `FOUND_SLOT_RETRY_DELAY` and `NO_SLOT_RETRY_DELAY` (in seconds) to change the the wait between attempts.
+```
+FOUND_SLOT_RETRY_DELAY = 180
+NO_SLOT_RETRY_DELAY = 180
+```
+
+Please note that a shorter delay may result in not finding any avalible slot. 180 seconds is tested to be safe for now.
