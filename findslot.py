@@ -17,20 +17,20 @@ USER_EMAIL = "name@gmail.com"
 USER_PASSWORD = "yourpassword"
 
 # Use "True" if you want to see Chrome in action, leave as "False" otherwise
-SHOW_GUI = False
+SHOW_GUI = True
 
 # The number of months you would wait 
 # Enter 0 if you only want slots in this month;
 # Enter 1 if you want slots in this month or next month (as early as possible);
 # Enter 2 if you want slots in this month or the next months (as early as possible);
 # And so on
-MAX_WAIT_MONTH = 1
+MAX_WAIT_MONTH = 6
 
 # You are advised to use the default values for the following variables
-# The number of seconds before retry when there's a slot (but wait time is too long)/when there's no slot
+# The number of seconds before retry, when there's a slot (but wait time is too long)/when there's no slot
 # The default values are tested, a wait time that's too short may result in failed requests
-FOUND_SLOT_RETRY_DELAY = 12
-NO_SLOT_RETRY_DELAY = 30
+FOUND_SLOT_RETRY_DELAY = 180
+NO_SLOT_RETRY_DELAY = 180
 ########################################
 # Do not modify the lines below
 ########################################
@@ -144,6 +144,8 @@ def attempt(email, pw, wait, slots):
 if __name__ == "__main__":
     # Use a dictionary found_slots to record the (nearest avalible month: times_found) pairs
     found_slots = {}
+    no_slot_count = 0
+    found_slot_count = 0
     result = -1
     attempt_count = 0
     while result == -1 or -2 or -3:
@@ -160,14 +162,18 @@ if __name__ == "__main__":
         os.system('clear')
         print("Attempt: {}".format(attempt_count))
         if result == -1:
+            found_slot_count += 1
             print("Slot found but wait time longer than desired")
             print("Previously found: {}".format(found_slots))
+            print("No slot: {} Found slot: {}".format(no_slot_count, found_slot_count))
             print("Retrying in {} seconds".format(FOUND_SLOT_RETRY_DELAY))
             print("#################################")
             sleep(FOUND_SLOT_RETRY_DELAY)
         elif result == -2:
+            no_slot_count += 1
             print("No slot currently avalible")
             print("Previously found: {}".format(found_slots))
+            print("No slot: {} Found slot: {}".format(no_slot_count, found_slot_count))
             print("Retrying in {} seconds".format(NO_SLOT_RETRY_DELAY))
             print("#################################")
             sleep(NO_SLOT_RETRY_DELAY)
