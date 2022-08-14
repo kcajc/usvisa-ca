@@ -1,4 +1,5 @@
-# An Extremely Simple Python Script for Making US Visa Interview Appointment in Canada
+# US Visa Re-scheduler for Canada
+An Extremely Simple Python Script for Making US Visa Interview Appointment in Canada
 ## Setup
 Make sure you have booked an appointment on https://ais.usvisa-info.com/en-ca/.
 
