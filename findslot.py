@@ -13,8 +13,8 @@ import os
 ########################################
 
 # Your email and password for ais.usvisa-info.com
-USER_EMAIL = "name@gmail.com"
-USER_PASSWORD = "yourpassword"
+USER_EMAIL = "senovare@gmail.com"
+USER_PASSWORD = "Hxlxl1314"
 
 # Use "True" if you want to see Chrome in action, leave as "False" otherwise
 SHOW_GUI = True
@@ -24,7 +24,7 @@ SHOW_GUI = True
 # Enter 1 if you want slots in this month or next month (as early as possible);
 # Enter 2 if you want slots in this month or the next months (as early as possible);
 # And so on
-MAX_WAIT_MONTH = 6
+MAX_WAIT_MONTH = 3
 
 # You are advised to use the default values for the following variables
 # The number of seconds before retry, when there's a slot (but wait time is too long)/when there's no slot
