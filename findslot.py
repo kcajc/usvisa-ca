@@ -52,6 +52,7 @@ def attempt(email, pw, wait, slots):
     driver.get(SIGNIN_PAGE)
 
     # Find/type email/password and checkbox
+    Wait(driver, 60).until(EC.presence_of_element_located((By.NAME, "user[email]")))
     email_input = driver.find_element(By.NAME, "user[email]")
     email_input.send_keys(email)
     password_input = driver.find_element(By.NAME, "user[password]")
