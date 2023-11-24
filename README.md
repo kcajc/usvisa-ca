@@ -8,7 +8,7 @@ An Extremely Simple Python Script for Making US Visa Interview Appointment in Ca
 
 Make sure you have booked an appointment on https://ais.usvisa-info.com/en-ca/.
 
-Have Python3 installed and PIP install Selenium and Web Driver Manager:
+Install dependencies (requires Python3):
 ```sh
 pip install selenium webdriver_manager
 ```
