@@ -5,6 +5,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from time import sleep
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.support.ui import WebDriverWait as Wait
 from webdriver_manager.chrome import ChromeDriverManager
 import os
 
@@ -56,9 +57,14 @@ def attempt(email, pw, wait, slots):
     email_input.send_keys(email)
     password_input = driver.find_element(By.NAME, "user[password]")
     password_input.send_keys(pw)
-    checkbox = driver.find_element(By.NAME, "policy_confirmed")
-    checkbox.send_keys(" ")
-    checkbox.send_keys(Keys.RETURN)
+    checkbox = driver.find_element(By.CLASS_NAME, "icheckbox")
+    checkbox.click()
+    btn = driver.find_element(By.NAME, "commit")
+    btn.click()
+    
+    Wait(driver, 60).until(
+        EC.presence_of_element_located((By.XPATH, "//a[contains(text(),'Continue')]")))
+    print("\tlogin successful!")
 
     # Land in appointment page, click "Continue"
     continue_link = driver.find_element(By.LINK_TEXT, 'Continue')
