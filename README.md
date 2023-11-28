@@ -37,3 +37,5 @@ NO_SLOT_RETRY_DELAY = 180
 ```
 
 Please note that a shorter delay may result in not finding any avalible slot. 180 seconds is tested to be safe for now.
+
+2023-11-27: verified the script working fine. reschedule Succesfully.
