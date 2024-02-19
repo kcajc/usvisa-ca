@@ -74,6 +74,7 @@ def get_available_dates(driver: WebDriver) -> list | None:
     )
     request_headers = REQUEST_HEADERS.copy()
     request_headers["Cookie"] = request_header_cookie
+    request_headers["User-Agent"] = driver.execute_script("return navigator.userAgent")
     response = requests.get(request_url, headers=request_headers)
     if response.status_code != 200:
         return None
