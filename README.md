@@ -1,6 +1,6 @@
 # US Visa Re-scheduler for Canada
 
-**⚠️ This project is no longer maintained. Please make a PR if you have a fix or want to improve its poor engineering practices.**
+Please try the latest version rewritten with `requests` on the `dev` branch. Feedback is appreciated!
 
 An Extremely Simple Python Script for Making US Visa Interview Appointment in Canada
 
