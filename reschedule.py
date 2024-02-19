@@ -109,7 +109,9 @@ def reschedule_with_new_session():
                     LATEST_ACCEPTABLE_DATE, "%Y-%m-%d"
                 ).date()
                 if earliest_available_date <= latest_acceptable_date:
-                    print(f"FOUND SLOT ON {earliest_available_date}!!!")
+                    print(
+                        f"{datetime.now().strftime('%H:%M:%S')} FOUND SLOT ON {earliest_available_date}!!!"
+                    )
                     try:
                         reschedule(driver)
                         print("SUCCESSFULLY RESCHEDULED!!!")
@@ -118,7 +120,9 @@ def reschedule_with_new_session():
                         print("Rescheduling failed: ", e)
                         continue
                 else:
-                    print(f"Earliest available date is {earliest_available_date}")
+                    print(
+                        f"{datetime.now().strftime('%H:%M:%S')} Earliest available date is {earliest_available_date}"
+                    )
                 sleep(REQUEST_DATE_DELAY)
             except Exception as e:
                 print("Error requesting available dates: ", e)

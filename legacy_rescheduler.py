@@ -65,10 +65,6 @@ def reschedule(driver):
     appointment_time.click()
     appointment_time_options = appointment_time.find_elements(By.TAG_NAME, "option")
     appointment_time_options[len(appointment_time_options) - 1].click()
-    # select_elem = driver.find_element(By.ID, "appointments_consulate_appointment_time")
-    # select_elem.click()
-    # options = select_elem.find_elements(By.TAG_NAME, "option")
-    # options[len(options) - 1].click()
 
     # Click "Reschedule"
     driver.find_element(
