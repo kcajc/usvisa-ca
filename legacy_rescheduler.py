@@ -9,7 +9,7 @@ from settings import TEST_MODE
 
 # This is frankly very, very bad and should be rewritten with requests
 # when I get a test account
-def reschedule(driver):
+def legacy_reschedule(driver):
     date_selection_box = WebDriverWait(driver, 5).until(
         EC.presence_of_element_located(
             (
@@ -76,6 +76,6 @@ def reschedule(driver):
             EC.presence_of_element_located((By.XPATH, "/html/body/div[6]/div/div/a[2]"))
         )
     finally:
-        driver.implicitly_wait(0.05)
+        driver.implicitly_wait(0.1)
         if not TEST_MODE:
             confirm.click()
