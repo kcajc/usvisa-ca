@@ -1,6 +1,6 @@
 # US Visa Re-scheduler for Canada
 
-Please try the latest version rewritten with `requests` on the `dev` branch. Feedback is appreciated!
+Please try the latest version rewritten with `requests` on the [dev](https://github.com/kcajc/usvisa-ca/tree/dev) branch. Feedback is appreciated!
 
 An Extremely Simple Python Script for Making US Visa Interview Appointment in Canada
 
