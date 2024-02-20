@@ -15,11 +15,13 @@ TEST_MODE = True
 
 # Don't change the following unless you know what you are doing
 DETACH = True
-NEW_SESSION_AFTER_FAILURES = 20
+NEW_SESSION_AFTER_FAILURES = 5
+NEW_SESSION_DELAY = 60
 TIMEOUT = 10
-FAIL_RETRY_DELAY = 10
-BACKOFF_RATE = 2
-REQUEST_DATE_DELAY = 60
+FAIL_RETRY_DELAY = 30
+DATE_REQUEST_DELAY = 30
+DATE_REQUEST_MAX_RETRY = 60
+DATE_REQUEST_MAX_TIME = 30 * 60
 LOGIN_URL = "https://ais.usvisa-info.com/en-ca/niv/users/sign_in"
 APPOINTMENT_PAGE_URL = "https://ais.usvisa-info.com/en-ca/niv/schedule/{id}/appointment"
 AVAILABLE_DATE_REQUEST_SUFFIX = "/days/94.json?appointments[expedite]=false"
