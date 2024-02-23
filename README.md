@@ -1,6 +1,6 @@
 # US Visa Re-scheduler for Canada
 
-Please try the latest version rewritten with `requests` on the [dev](https://github.com/kcajc/usvisa-ca/tree/dev) branch. Feedback is appreciated!
+**This is the legacy version of the app using only `Selenium`**, the latest version has been rewritten to use `requests` for refreshing available dates.
 
 An Extremely Simple Python Script for Making US Visa Interview Appointment in Canada
 
