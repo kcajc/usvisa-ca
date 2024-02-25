@@ -28,7 +28,7 @@ Run the script:
 python reschedule.py
 ```
 
-See the script in action. Once you're satisfied with its functionality, set `TEST_MODE` to `False`. For a headless operation, you can also set `SHOW_GUI` to `False` and allow the script to run unattended.
+See the script in action. Once you're satisfied with its functionality, set `TEST_MODE` to `False` in `settings.py`. For a headless operation, you can also set `SHOW_GUI` to `False` and allow the script to run unattended.
 
 ## Caution
 
