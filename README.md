@@ -1,4 +1,4 @@
-# US Visa Re-scheduler for Canada
+# US Visa Rescheduler for Canada
 
 ~~This project is no longer maintained. Please make a PR if you have a fix or want to improve its poor engineering practices.~~
 Surprisingly, this project has proven to be more useful than initially thought. I will try to maintain it as long as possible, given my availability and access to test accounts.
@@ -14,7 +14,7 @@ Install dependencies (Python3 is required):
 pip install selenium webdriver_manager requests
 ```
 
-Modify the the `settings.py` as per the instructions within the script:
+Modify `settings.py` as per the instructions within the script:
 
 ```python3
 USER_EMAIL = "name@gmail.com"
