@@ -1,4 +1,5 @@
 import re
+import traceback
 from datetime import datetime
 from time import sleep
 
@@ -118,6 +119,7 @@ def reschedule(driver: WebDriver) -> bool:
                 return True
             except Exception as e:
                 print("Rescheduling failed: ", e)
+                traceback.print_exc()
                 continue
         else:
             print(
