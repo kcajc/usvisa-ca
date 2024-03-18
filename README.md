@@ -40,7 +40,7 @@ Please feel free to report issues. PRs are welcomed and greatly appreciated!
 
 The script can be flaky especially for the `legacy_rescheduler`.  Plans are in place to rewrite it using `requests`, but a test account is needed.
 
-I have received some reports on potential problems in `legacy_rescheduler`. I need test accounts to understand the problems, if you would like to help please [send me an email](mailto:hi@jackc.dev).
+I have received some reports on potential problems in `legacy_rescheduler`. I need test accounts to understand the problems, if you would like to help please send me an email via the website in my bio.
 
 ## Disclaimer
 
