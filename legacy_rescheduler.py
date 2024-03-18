@@ -10,6 +10,7 @@ from settings import TEST_MODE
 # This is frankly very, very bad and should be rewritten with requests
 # when I get a test account
 def legacy_reschedule(driver):
+    driver.refresh()
     date_selection_box = WebDriverWait(driver, 5).until(
         EC.presence_of_element_located(
             (
