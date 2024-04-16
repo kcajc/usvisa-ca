@@ -45,7 +45,7 @@ def get_dates_from_payment_page(driver: WebDriver) -> None:
     return loc_str_array, date_str_array
 
 
-def detact_and_notify(loc_str_array: list, date_str_array: list) -> bool:
+def detect_and_notify(loc_str_array: list, date_str_array: list) -> bool:
     earliest_acceptable_date = datetime.strptime(
         EARLIEST_ACCEPTABLE_DATE, "%Y-%m-%d"
     ).date()
@@ -54,7 +54,7 @@ def detact_and_notify(loc_str_array: list, date_str_array: list) -> bool:
     ).date()
 
     length = len(loc_str_array)
-    detacted = False
+    detected = False
     for i in range(length):
         loc_str = loc_str_array[i]
         date_str = date_str_array[i]
@@ -69,15 +69,15 @@ def detact_and_notify(loc_str_array: list, date_str_array: list) -> bool:
                 f"{datetime.now().strftime('%H:%M:%S')} FOUND SLOT ON {date}, location: {loc_str}!!!, sending email..."
             )
             notify_receiver(f"New slot found with date: {date}, location: {loc_str}", f"New slot found with date: {date}, location: {loc_str}")
-            detacted = True
+            detected = True
         else:
             print(
                 f"{datetime.now().strftime('%H:%M:%S')} Earliest available date is {date}, location: {loc_str}"
             )
-    return detacted
+    return detected
 
 
-def detact_with_new_session() -> bool:
+def detect_with_new_session() -> bool:
     driver = get_chrome_driver()
     session_failures = 0
     while session_failures < NEW_SESSION_AFTER_FAILURES:
@@ -90,9 +90,9 @@ def detact_with_new_session() -> bool:
             session_failures += 1
             sleep(FAIL_RETRY_DELAY)
             continue
-    detacted = detact_and_notify(loc_str_array, date_str_array)
+    detected = detect_and_notify(loc_str_array, date_str_array)
     driver.quit()
-    return detacted
+    return detected
 
 
 if __name__ == "__main__":
@@ -101,8 +101,8 @@ if __name__ == "__main__":
     while True:
         session_count += 1
         print(f"Attempting with new session #{session_count}")
-        detacted = detact_with_new_session()
+        detected = detect_with_new_session()
         sleep(NEW_SESSION_DELAY)
-        if detacted:
+        if detected:
             sleep(600)
             print("Yay!!!")
