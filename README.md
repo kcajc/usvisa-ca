@@ -60,6 +60,9 @@ The script can be flaky especially for the `legacy_rescheduler`.  Plans are in p
 
 I have received some reports on potential problems in `legacy_rescheduler`. I need test accounts to understand the problems, if you would like to help please send me an email via the website in my bio.
 
+## Special thanks
+The gmail folder is reusing this package https://github.com/paulc/gmail-sender/tree/master, I'm copying it since it's not published to pip yet.
+
 ## Disclaimer
 
 This script is provided as-is for the purpose of assisting individuals in rescheduling appointments. While it has been developed with care and with the intention of being helpful, it comes with no guarantees or warranties of any kind, either expressed or implied. By using this script, you acknowledge and agree that you are doing so at your own risk. The author(s) or contributor(s) of this script shall not be held liable for any direct or indirect damages that arise from its use. Please ensure that you understand the actions performed by this script before running it, and consider the ethical and legal implications of its use in your context.
