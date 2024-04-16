@@ -2,22 +2,23 @@
 USER_EMAIL = ""
 USER_PASSWORD = ""
 
-#Gmail login info
+# Say you want an appointment no later than Mar 14, 2024
+# Please strictly follow the YYYY-MM-DD format
+EARLIEST_ACCEPTABLE_DATE = "2024-07-23"
+LATEST_ACCEPTABLE_DATE = "2025-01-29"
+
+# The following is only required for the Gmail notification feature
+# Gmail login info
 GMAIL_SENDER_NAME = ""
 GMAIL_EMAIL = ""
 GMAIL_APPLICATION_PWD = ""
 
-#Receiver info
+# Email notification receiver info
 RECEIVER_NAME = ""
 RECEIVER_EMAIL = ""
 
-# override with local, for developers
+# Override with local, for developers
 # from local import *
-
-# Say you want an appointment no later than Mar 14, 2024
-# Please strictly follow the YYYY-MM-DD format
-EARLIEST_ACCEPTABLE_DATE = "2024-10-01"
-LATEST_ACCEPTABLE_DATE = "2025-01-29"
 
 # See the automation in action
 SHOW_GUI = True  # toggle to false if you don't want to see the browser
