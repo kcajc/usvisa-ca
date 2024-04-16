@@ -23,13 +23,17 @@ EARLIEST_ACCEPTABLE_DATE = "2024-01-01"  # this is now only used in detecting
 LATEST_ACCEPTABLE_DATE = "2024-03-14" 
 ```
 
-If you wanna get a slot, run the script:
+### Find a slot and book it automatically
 
 ```sh
 python reschedule.py
 ```
 
-If you wanna only detect and send you an email when a slot is found, setup additional constants, and run the script to detect:
+or:
+
+### Only find slots and send you an email when a slot is found 
+
+Setup additional constants:
 ```python3
 #Gmail login info
 GMAIL_SENDER_NAME = ""
@@ -41,9 +45,10 @@ RECEIVER_NAME = ""
 RECEIVER_EMAIL = ""
 ```
 
+and run the script:
 
 ```sh
-python detect_and_notify_py
+python detect_and_notify.py
 ```
 
 See the script in action. Once you're satisfied with its functionality, set `TEST_MODE` to `False` in `settings.py`. For a headless operation, you can also set `SHOW_GUI` to `False` and allow the script to run unattended.
@@ -61,7 +66,9 @@ The script can be flaky especially for the `legacy_rescheduler`.  Plans are in p
 I have received some reports on potential problems in `legacy_rescheduler`. I need test accounts to understand the problems, if you would like to help please send me an email via the website in my bio.
 
 ## Special thanks
-The gmail folder is reusing this package https://github.com/paulc/gmail-sender/tree/master, I'm copying it since it's not published to pip yet.
+Huge thanks to [@jywyq](https://github.com/jywyq) for adding the Gmail notification feature.
+
+The gmail folder is reusing [gmail-sender](https://github.com/paulc/gmail-sender/tree/master). I'm copying it since it's not published to pip yet.
 
 ## Disclaimer
 
