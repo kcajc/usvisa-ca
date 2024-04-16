@@ -11,7 +11,7 @@ Make sure you have booked an appointment on https://ais.usvisa-info.com/en-ca/.
 
 Install dependencies (Python3 is required):
 ```sh
-pip install selenium webdriver_manager requests
+pip install -r requirements.txt
 ```
 
 Modify `settings.py` as per the instructions within the script:
@@ -19,13 +19,31 @@ Modify `settings.py` as per the instructions within the script:
 ```python3
 USER_EMAIL = "name@gmail.com"
 USER_PASSWORD = "yourpassword"
-LATEST_ACCEPTABLE_DATE = "2024-03-14"
+EARLIEST_ACCEPTABLE_DATE = "2024-01-01"  # this is now only used in detecting
+LATEST_ACCEPTABLE_DATE = "2024-03-14" 
 ```
 
-Run the script:
+If you wanna get a slot, run the script:
 
 ```sh
 python reschedule.py
+```
+
+If you wanna only detect and send you an email when a slot is found, setup additional constants, and run the script to detect:
+```python3
+#Gmail login info
+GMAIL_SENDER_NAME = ""
+GMAIL_EMAIL = ""
+GMAIL_APPLICATION_PWD = ""
+
+#Receiver info
+RECEIVER_NAME = ""
+RECEIVER_EMAIL = ""
+```
+
+
+```sh
+python detect_and_notify_py
 ```
 
 See the script in action. Once you're satisfied with its functionality, set `TEST_MODE` to `False` in `settings.py`. For a headless operation, you can also set `SHOW_GUI` to `False` and allow the script to run unattended.
