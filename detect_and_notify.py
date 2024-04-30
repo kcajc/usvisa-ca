@@ -80,17 +80,18 @@ def detect_and_notify(loc_str_array: list, date_str_array: list) -> bool:
 def detect_with_new_session() -> bool:
     driver = get_chrome_driver()
     session_failures = 0
+    detected = False
     while session_failures < NEW_SESSION_AFTER_FAILURES:
         try:
             login(driver)
             loc_str_array, date_str_array = get_dates_from_payment_page(driver)
+            detected = detect_and_notify(loc_str_array, date_str_array)
             break
         except Exception as e:
             print("Unable to get payment page: ", e)
             session_failures += 1
             sleep(FAIL_RETRY_DELAY)
             continue
-    detected = detect_and_notify(loc_str_array, date_str_array)
     driver.quit()
     return detected
 
