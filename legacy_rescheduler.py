@@ -15,7 +15,7 @@ def legacy_reschedule(driver):
         EC.presence_of_element_located(
             (
                 By.XPATH,
-                "/html/body/div[4]/main/div[4]/div/div/form/fieldset/ol/fieldset/div/div[2]/div[3]/label[1]",
+                "/html/body/div[4]/main/div[4]/div/div/form/fieldset/ol/fieldset/div/div[2]/div[3]/li[1]/input",
             )
         )
     )
