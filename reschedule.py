@@ -23,6 +23,7 @@ def get_chrome_driver() -> WebDriver:
         options.add_argument("headless")
         options.add_argument("window-size=1920x1080")
         options.add_argument("disable-gpu")
+        options.add_argument('user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36')
     options.add_experimental_option("detach", DETACH)
     driver = webdriver.Chrome(
         service=Service(ChromeDriverManager().install()), options=options
