@@ -55,7 +55,7 @@ See the script in action. Once you're satisfied with its functionality, set `TES
 
 ## Caution
 
-This script is written and tested with the Toronto consulate, for appointments with Vancouver consulate or other locations, please change the number in `settings.py`. See [this issue](https://github.com/kcajc/usvisa-ca/issues/29) (thanks to [@trungnguyen21](https://github.com/trungnguyen21)!).
+This script is written and tested with the Toronto consulate, for appointments with the Vancouver consulate or other locations, please change the number in `settings.py`. See [this issue](https://github.com/kcajc/usvisa-ca/issues/29) (thanks to [@trungnguyen21](https://github.com/trungnguyen21)!).
 
 ```python3
 # Vancouver
