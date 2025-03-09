@@ -1,8 +1,5 @@
 # US Visa Rescheduler for Canada
 
-~~This project is no longer maintained. Please make a PR if you have a fix or want to improve its poor engineering practices.~~
-Surprisingly, this project has proven to be more useful than initially thought. I will try to maintain it as long as possible, given my availability and access to test accounts.
-
 A simple Python script for making US visa interview appointments in Canada
 
 ## Setup
@@ -23,7 +20,6 @@ EARLIEST_ACCEPTABLE_DATE = "2024-01-01"  # this is now only used in detecting
 LATEST_ACCEPTABLE_DATE = "2024-03-14" 
 USER_CONSULATE = "Toronto"
 ```
-(Thanks to [@trungnguyen21](https://github.com/trungnguyen21) and [@saroopskesav](https://github.com/saroopskesav) for helping with the consulate numbers in other cities!)
 
 ### Find a slot and book it automatically
 
@@ -31,9 +27,9 @@ USER_CONSULATE = "Toronto"
 python reschedule.py
 ```
 
-or:
+OR:
 
-### Only find slots and send you an email when a slot is found 
+### Only find slots and send you an email when a slot is found (Unstable)
 
 Setup additional constants:
 ```python3
@@ -58,6 +54,8 @@ See the script in action. Once you're satisfied with its functionality, set `TES
 ## Caution
 It may not always be feasible to reschedule an appointment multiple times. Therefore, it's crucial to use `TEST_MODE = True` for testing purposes and ensure the `LATEST_ACCEPTABLE_DATE` is genuinely acceptable to you.
 
+Consulates other than Toronto and Vancouver are not tested.
+
 ## Contribution
 
 Please feel free to report issues. PRs are welcomed and greatly appreciated!
@@ -70,6 +68,8 @@ I have received some reports on potential problems in `legacy_rescheduler`. I ne
 Huge thanks to [@jywyq](https://github.com/jywyq) for adding the Gmail notification feature.
 
 The gmail folder is reusing [gmail-sender](https://github.com/paulc/gmail-sender/tree/master). I'm copying it since it's not published to pip yet.
+
+Thanks to [@trungnguyen21](https://github.com/trungnguyen21) and [@saroopskesav](https://github.com/saroopskesav) for helping with the consulate numbers in other cities!
 
 ## Disclaimer
 
