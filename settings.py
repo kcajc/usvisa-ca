@@ -7,6 +7,19 @@ USER_PASSWORD = ""
 EARLIEST_ACCEPTABLE_DATE = "2024-07-23"
 LATEST_ACCEPTABLE_DATE = "2025-01-29"
 
+# Your consulate's city
+CONSULATES = {
+    "Calgary": 89,
+    "Halifax": 90,
+    "Montreal": 91,
+    "Ottawa": 92,
+    "Quebec": 93,
+    "Toronto": 94,
+    "Vancouver": 95
+} # Only Toronto and Vancouver consulates are verified
+# Choose a city from the list above
+USER_CONSULATE = "Toronto" 
+
 # The following is only required for the Gmail notification feature
 # Gmail login info
 GMAIL_SENDER_NAME = ""
@@ -37,8 +50,7 @@ DATE_REQUEST_DELAY = 30
 DATE_REQUEST_MAX_RETRY = 60
 DATE_REQUEST_MAX_TIME = 30 * 60
 LOGIN_URL = "https://ais.usvisa-info.com/en-ca/niv/users/sign_in"
-# This is hardcoded to the Toronto consulate, might need to change for other consulates
-AVAILABLE_DATE_REQUEST_SUFFIX = "/days/94.json?appointments[expedite]=false"
+AVAILABLE_DATE_REQUEST_SUFFIX = f"/days/{CONSULATES[USER_CONSULATE]}.json?appointments[expedite]=false"
 APPOINTMENT_PAGE_URL = "https://ais.usvisa-info.com/en-ca/niv/schedule/{id}/appointment"
 PAYMENT_PAGE_URL = "https://ais.usvisa-info.com/en-ca/niv/schedule/{id}/payment"
 REQUEST_HEADERS = {
