@@ -52,6 +52,7 @@ python detect_and_notify.py
 See the script in action. Once you're satisfied with its functionality, set `TEST_MODE` to `False` in `settings.py`. For a headless operation, you can also set `SHOW_GUI` to `False` and allow the script to run unattended.
 
 ## Caution
+
 It may not always be feasible to reschedule an appointment multiple times. Therefore, it's crucial to use `TEST_MODE = True` for testing purposes and ensure the `LATEST_ACCEPTABLE_DATE` is genuinely acceptable to you.
 
 Consulates other than Toronto and Vancouver are not tested.
@@ -60,16 +61,14 @@ Consulates other than Toronto and Vancouver are not tested.
 
 Please feel free to report issues. PRs are welcomed and greatly appreciated!
 
-The script can be flaky especially for the `legacy_rescheduler`.  Plans are in place to rewrite it using `requests`, but a test account is needed.
-
-I have received some reports on potential problems in `legacy_rescheduler`. I need test accounts to understand the problems, if you would like to help please send me an email via the website in my bio.
+The script can be flaky especially for the `legacy_rescheduler`.  Plans are in place to rewrite it using `requests`.
 
 ## Special thanks
 Huge thanks to [@jywyq](https://github.com/jywyq) for adding the Gmail notification feature.
 
 The gmail folder is reusing [gmail-sender](https://github.com/paulc/gmail-sender/tree/master). I'm copying it since it's not published to pip yet.
 
-Thanks to [@trungnguyen21](https://github.com/trungnguyen21) and [@saroopskesav](https://github.com/saroopskesav) for helping with the consulate numbers in other cities!
+Thanks to [@trungnguyen21](https://github.com/trungnguyen21) and [@saroopskesav](https://github.com/saroopskesav) for helping with the consulate numbers in other cities.
 
 ## Disclaimer
 
