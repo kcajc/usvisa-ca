@@ -21,7 +21,9 @@ USER_EMAIL = "name@gmail.com"
 USER_PASSWORD = "yourpassword"
 EARLIEST_ACCEPTABLE_DATE = "2024-01-01"  # this is now only used in detecting
 LATEST_ACCEPTABLE_DATE = "2024-03-14" 
+USER_CONSULATE = "Toronto"
 ```
+(Thanks to [@trungnguyen21](https://github.com/trungnguyen21) and [@saroopskesav](https://github.com/saroopskesav) for helping with the consulate numbers in other cities!)
 
 ### Find a slot and book it automatically
 
@@ -54,16 +56,6 @@ python detect_and_notify.py
 See the script in action. Once you're satisfied with its functionality, set `TEST_MODE` to `False` in `settings.py`. For a headless operation, you can also set `SHOW_GUI` to `False` and allow the script to run unattended.
 
 ## Caution
-
-This script is written and tested with the Toronto consulate, for appointments with the Vancouver consulate or other locations, please change the number in `settings.py`. See [this issue](https://github.com/kcajc/usvisa-ca/issues/29) (thanks to [@trungnguyen21](https://github.com/trungnguyen21)!).
-
-```python3
-# Vancouver
-AVAILABLE_DATE_REQUEST_SUFFIX = "/days/95.json?appointments[expedite]=false"
-```
-
-
-
 It may not always be feasible to reschedule an appointment multiple times. Therefore, it's crucial to use `TEST_MODE = True` for testing purposes and ensure the `LATEST_ACCEPTABLE_DATE` is genuinely acceptable to you.
 
 ## Contribution
