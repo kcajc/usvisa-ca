@@ -57,5 +57,3 @@ PAYMENT_PAGE_URL = "https://ais.usvisa-info.com/en-ca/niv/schedule/{id}/payment"
 REQUEST_HEADERS = {
     "X-Requested-With": "XMLHttpRequest",
 }
-EXEC_CHROME_DRIVER = '/opt/chromedriver/bin/chromedriver'
-EXEC_BRAVE_BROWSER = '/usr/bin/brave'

@@ -24,11 +24,8 @@ def get_chrome_driver() -> WebDriver:
         options.add_argument("disable-gpu")
         options.add_argument('user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36')
     options.add_experimental_option("detach", DETACH)
-    options.binary_location = EXEC_BRAVE_BROWSER
     options.add_argument('--incognito')
-    driver = webdriver.Chrome(
-        service=Service(executable_path=EXEC_CHROME_DRIVER), options=options
-    )
+    driver = webdriver.Chrome(options=options)
     return driver
 
 
