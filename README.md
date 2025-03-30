@@ -70,6 +70,8 @@ The gmail folder is reusing [gmail-sender](https://github.com/paulc/gmail-sender
 
 Thanks to [@trungnguyen21](https://github.com/trungnguyen21) and [@saroopskesav](https://github.com/saroopskesav) for helping with the consulate numbers in other cities.
 
+Huge thanks to [bsingh-kpt](https://github.com/bsingh-kpt) for fixing the `legacy_rescheduler` in Mar 2025.
+
 ## Disclaimer
 
 This script is provided as-is for the purpose of assisting individuals in rescheduling appointments. While it has been developed with care and with the intention of being helpful, it comes with no guarantees or warranties of any kind, either expressed or implied. By using this script, you acknowledge and agree that you are doing so at your own risk. The author(s) or contributor(s) of this script shall not be held liable for any direct or indirect damages that arise from its use. Please ensure that you understand the actions performed by this script before running it, and consider the ethical and legal implications of its use in your context.
