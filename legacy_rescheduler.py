@@ -1,33 +1,42 @@
 from time import sleep
+from datetime import datetime, date
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.chrome.webdriver import WebDriver
 
-from settings import TEST_MODE
-
+from settings import TEST_MODE, NUM_PARTICIPANTS
 
 # This is frankly very, very bad and should be rewritten with requests
 # when I get a test account
-def legacy_reschedule(driver):
+def legacy_reschedule(driver: WebDriver, date_to_book: date):
     driver.refresh()
-    date_selection_box = WebDriverWait(driver, 5).until(
+
+    # Continue btn: applicable when there are more than one applicant for scheduling
+    if NUM_PARTICIPANTS > 1:
+        continueBtn = WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located((By.XPATH, "//main[@id='main']/div[@class='mainContent']/form/div[2]/div/input"))
+            )
+        continueBtn.click()
+
+    date_selection_box = WebDriverWait(driver, 10).until(
         EC.presence_of_element_located(
             (
-                By.XPATH,
-                "/html/body/div[4]/main/div[4]/div/div/form/fieldset/ol/fieldset/div/div[2]/div[3]/li[1]/input",
+                By.ID, 'appointments_consulate_appointment_date_input'
             )
         )
     )
+    sleep(2)
     date_selection_box.click()
 
     # Move to next month
     def next_month():
-        driver.find_element(By.XPATH, "/html/body/div[5]/div[2]/div/a").click()
+        driver.find_element(By.XPATH, "//div[@id='ui-datepicker-div']/div[2]/div/a").click()
 
     # Check if avalible in current month
     def cur_month_ava():
-        month = driver.find_element(By.XPATH, "/html/body/div[5]/div[1]/table/tbody")
+        month = driver.find_element(By.XPATH, "//div[@id='ui-datepicker-div']/div[1]/table/tbody")
         dates = month.find_elements(By.TAG_NAME, "td")
         for date in dates:
             if date.get_attribute("class") == " undefined":
@@ -49,7 +58,7 @@ def legacy_reschedule(driver):
 
     # Reschedule if the avalible_in_months is less than or equal to wait month
     print("Trying to pick time and reschedule...")
-    month = driver.find_element(By.XPATH, "/html/body/div[5]/div[1]/table/tbody")
+    month = driver.find_element(By.XPATH, "//div[@id='ui-datepicker-div']/div[1]/table/tbody")
     dates = month.find_elements(By.TAG_NAME, "td")
     ava_date_btn = None
     for date in dates:
@@ -57,6 +66,23 @@ def legacy_reschedule(driver):
             ava_date_btn = date.find_element(By.TAG_NAME, "a")
             break
     ava_date_btn.click()
+
+    # confirm selected date
+    sleep(2)
+    date_box = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located(
+            (
+                By.ID, 'appointments_consulate_appointment_date'
+            )
+        )
+    )
+    date_selected = datetime.strptime(date_box.get_attribute('value'), "%Y-%m-%d").date()
+    print(date_selected)
+    if not date_selected <= date_to_book:
+        print(f"{datetime.now().strftime('%H:%M:%S')} SLOT '{date_to_book}' no longer available\n")
+        return False
+    else:
+        print(f"{datetime.now().strftime('%H:%M:%S')} SLOT '{date_selected}' is still available. Booking....\n")
 
     # Select time of the date:
     sleep(2)
@@ -70,13 +96,18 @@ def legacy_reschedule(driver):
     # Click "Reschedule"
     driver.find_element(
         By.XPATH,
-        "/html/body/div[4]/main/div[4]/div/div/form/div[2]/fieldset/ol/li/input",
+        "//form[@id='appointment-form']/div[2]/fieldset/ol/li/input",
     ).click()
+    sleep(2)
     try:
         confirm = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.XPATH, "/html/body/div[6]/div/div/a[2]"))
         )
     finally:
+        sleep(2)
         driver.implicitly_wait(0.1)
         if not TEST_MODE:
             confirm.click()
+            return True
+
+    return False

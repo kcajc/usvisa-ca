@@ -10,7 +10,6 @@ from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from webdriver_manager.chrome import ChromeDriverManager
 
 from legacy_rescheduler import legacy_reschedule
 from request_tracker import RequestTracker
@@ -25,8 +24,10 @@ def get_chrome_driver() -> WebDriver:
         options.add_argument("disable-gpu")
         options.add_argument('user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36')
     options.add_experimental_option("detach", DETACH)
+    options.binary_location = EXEC_BRAVE_BROWSER
+    options.add_argument('--incognito')
     driver = webdriver.Chrome(
-        service=Service(ChromeDriverManager().install()), options=options
+        service=Service(executable_path=EXEC_CHROME_DRIVER), options=options
     )
     return driver
 
@@ -62,6 +63,7 @@ def get_appointment_page(driver: WebDriver) -> None:
         EC.element_to_be_clickable((By.LINK_TEXT, "Continue"))
     )
     continue_button.click()
+    sleep(2)
     current_url = driver.current_url
     url_id = re.search(r"/(\d+)", current_url).group(1)
     appointment_url = APPOINTMENT_PAGE_URL.format(id=url_id)
@@ -98,8 +100,11 @@ def get_available_dates(
     return dates
 
 
-def reschedule(driver: WebDriver) -> bool:
-    date_request_tracker = RequestTracker(DATE_REQUEST_MAX_RETRY, DATE_REQUEST_MAX_TIME)
+def reschedule(driver: WebDriver, retryCount: int = 0) -> bool:
+    date_request_tracker = RequestTracker(
+        retryCount if (retryCount > 0) else DATE_REQUEST_MAX_RETRY,
+        30 * retryCount if (retryCount > 0) else DATE_REQUEST_MAX_TIME
+    )
     while date_request_tracker.should_retry():
         dates = get_available_dates(driver, date_request_tracker)
         if not dates:
@@ -115,9 +120,10 @@ def reschedule(driver: WebDriver) -> bool:
                 f"{datetime.now().strftime('%H:%M:%S')} FOUND SLOT ON {earliest_available_date}!!!"
             )
             try:
-                legacy_reschedule(driver)
-                print("SUCCESSFULLY RESCHEDULED!!!")
-                return True
+                if legacy_reschedule(driver, earliest_available_date):
+                    print("SUCCESSFULLY RESCHEDULED!!!")
+                    return True
+                return False
             except Exception as e:
                 print("Rescheduling failed: ", e)
                 traceback.print_exc()
@@ -130,7 +136,7 @@ def reschedule(driver: WebDriver) -> bool:
     return False
 
 
-def reschedule_with_new_session() -> bool:
+def reschedule_with_new_session(retryCount: int = DATE_REQUEST_MAX_RETRY) -> bool:
     driver = get_chrome_driver()
     session_failures = 0
     while session_failures < NEW_SESSION_AFTER_FAILURES:
@@ -143,11 +149,11 @@ def reschedule_with_new_session() -> bool:
             session_failures += 1
             sleep(FAIL_RETRY_DELAY)
             continue
-    rescheduled = reschedule(driver)
+    rescheduled = reschedule(driver, retryCount)
+    driver.quit()
     if rescheduled:
         return True
     else:
-        driver.quit()
         return False
 
 

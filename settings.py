@@ -1,11 +1,12 @@
 # Account Info
 USER_EMAIL = ""
 USER_PASSWORD = ""
+NUM_PARTICIPANTS = 1
 
 # Say you want an appointment no later than Mar 14, 2024
 # Please strictly follow the YYYY-MM-DD format
-EARLIEST_ACCEPTABLE_DATE = "2024-07-23"
-LATEST_ACCEPTABLE_DATE = "2025-01-29"
+EARLIEST_ACCEPTABLE_DATE = "2024-03-26"
+LATEST_ACCEPTABLE_DATE = "2026-10-10"
 
 # Your consulate's city
 CONSULATES = {
@@ -56,3 +57,5 @@ PAYMENT_PAGE_URL = "https://ais.usvisa-info.com/en-ca/niv/schedule/{id}/payment"
 REQUEST_HEADERS = {
     "X-Requested-With": "XMLHttpRequest",
 }
+EXEC_CHROME_DRIVER = '/opt/chromedriver/bin/chromedriver'
+EXEC_BRAVE_BROWSER = '/usr/bin/brave'
