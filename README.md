@@ -66,11 +66,11 @@ The script can be flaky especially for the `legacy_rescheduler`.  Plans are in p
 ## Special thanks
 Huge thanks to [@jywyq](https://github.com/jywyq) for adding the Gmail notification feature.
 
-The gmail folder is reusing [gmail-sender](https://github.com/paulc/gmail-sender/tree/master). I'm copying it since it's not published to pip yet.
+Huge thanks to [@bsingh-kpt](https://github.com/bsingh-kpt) for (finally!) fixing the `legacy_rescheduler` in Mar 2025.
 
 Thanks to [@trungnguyen21](https://github.com/trungnguyen21) and [@saroopskesav](https://github.com/saroopskesav) for helping with the consulate numbers in other cities.
 
-Huge thanks to [bsingh-kpt](https://github.com/bsingh-kpt) for fixing the `legacy_rescheduler` in Mar 2025.
+The gmail folder is reusing [gmail-sender](https://github.com/paulc/gmail-sender/tree/master). I'm copying it since it's not published to pip yet.
 
 ## Disclaimer
 
