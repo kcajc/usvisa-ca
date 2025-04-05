@@ -42,16 +42,15 @@ Consulates other than Toronto and Vancouver are not tested.
 
 Please feel free to report issues. PRs are welcomed and greatly appreciated!
 
-The script can be flaky especially for the `legacy_rescheduler`.  Plans are in place to rewrite it using `requests`.
+One improvement I'm interested in is rewriting `legacy_rescheduler` using `requests`.
 
 ## Special thanks
+
 Huge thanks to [@jywyq](https://github.com/jywyq) for adding the Gmail notification feature.
 
 Huge thanks to [@bsingh-kpt](https://github.com/bsingh-kpt) for (finally!) fixing the `legacy_rescheduler` in Mar 2025.
 
 Thanks to [@trungnguyen21](https://github.com/trungnguyen21) and [@saroopskesav](https://github.com/saroopskesav) for helping with the consulate numbers in other cities.
-
-The gmail folder is reusing [gmail-sender](https://github.com/paulc/gmail-sender/tree/master). I'm copying it since it's not published to pip yet.
 
 ## Disclaimer
 
