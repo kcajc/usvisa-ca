@@ -27,29 +27,10 @@ USER_CONSULATE = "Toronto"
 python reschedule.py
 ```
 
-OR:
-
-### Only find slots and send you an email when a slot is found (Unstable)
-
-Setup additional constants:
-```python3
-#Gmail login info
-GMAIL_SENDER_NAME = ""
-GMAIL_EMAIL = ""
-GMAIL_APPLICATION_PWD = ""
-
-#Receiver info
-RECEIVER_NAME = ""
-RECEIVER_EMAIL = ""
-```
-
-and run the script:
-
-```sh
-python detect_and_notify.py
-```
-
 See the script in action. Once you're satisfied with its functionality, set `TEST_MODE` to `False` in `settings.py`. For a headless operation, you can also set `SHOW_GUI` to `False` and allow the script to run unattended.
+
+Note `detect_and_notify.py` is no longer maintained.
+
 
 ## Caution
 
