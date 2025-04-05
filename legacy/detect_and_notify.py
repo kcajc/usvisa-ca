@@ -19,6 +19,10 @@ from settings import *
 from gmail import GMail, Message
 
 
+# The gmail folder is reusing [gmail-sender](https://github.com/paulc/gmail-sender/tree/master). 
+# I'm copying it since it's not published to pip yet.
+
+
 def notify_receiver(title_str: str, msg_str: str):
     gmail = GMail(f"{GMAIL_SENDER_NAME} <{GMAIL_EMAIL}>", GMAIL_APPLICATION_PWD)  # Sender gmail
     msg = Message(title_str ,to=f'{RECEIVER_NAME} <{RECEIVER_EMAIL}>',text=msg_str)
