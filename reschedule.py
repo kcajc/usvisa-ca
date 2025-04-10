@@ -5,7 +5,6 @@ from time import sleep
 
 import requests
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -87,6 +86,7 @@ def get_available_dates(
         return None
     if response.status_code != 200:
         print(f"Failed with status code {response.status_code}")
+        print(f"Response Text: {response.text}")
         return None
     try:
         dates_json = response.json()
