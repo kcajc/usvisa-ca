@@ -92,6 +92,7 @@ def get_available_dates(
         dates_json = response.json()
     except:
         print("Failed to decode json")
+        print(f"Response Text: {response.text}")
         return None
     dates = [datetime.strptime(item["date"], "%Y-%m-%d").date() for item in dates_json]
     return dates
