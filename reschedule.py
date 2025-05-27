@@ -29,6 +29,9 @@ def get_chrome_driver() -> WebDriver:
         options.add_argument('user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36')
     options.add_experimental_option("detach", DETACH)
     options.add_argument('--incognito')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+    options.add_argument(f'--user-data-dir=/tmp/chrome-{datetime.now().strftime("%Y%m%d-%H%M%S")}')
     driver = webdriver.Chrome(options=options)
     return driver
 
