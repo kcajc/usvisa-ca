@@ -6,7 +6,8 @@ After=network.target
 Type=simple
 User=root
 WorkingDirectory=/root/usvisa-ca
-ExecStart=/usr/bin/python3 /root/usvisa-ca/reschedule.py
+Environment=PATH=/root/usvisa-ca/venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ExecStart=/root/usvisa-ca/venv/bin/python /root/usvisa-ca/reschedule.py
 Restart=always
 RestartSec=60
 StandardOutput=append:/root/usvisa-ca/logs/rescheduler.log
