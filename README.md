@@ -44,6 +44,8 @@ sudo systemctl start usvisa-rescheduler
 python reschedule.py > logs/rescheduler.log 2>&1 &
 ```
 
+## VM without Service
+
 ```sh
 sudo apt update
 sudo apt install python3-pip python3-selenium chromium-browser chromium-chromedriver screen
@@ -63,6 +65,20 @@ screen -L -Logfile /var/log/usvisa-rescheduler/rescheduler.log -S visa-reschedul
 
 python3 reschedule.py
 ```
+
+## Local in background
+
+```sh
+brew install screen
+screen -S visa-rescheduler
+python3 reschedule.py
+```
+
+To manage the screen session:
+Detach from screen: Ctrl+A then D
+Reattach to screen: screen -r visa-rescheduler
+List screen sessions: screen -ls
+Kill screen session: Ctrl+A then K
 
 ## Caution
 
