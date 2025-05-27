@@ -44,6 +44,23 @@ sudo systemctl start usvisa-rescheduler
 python reschedule.py > logs/rescheduler.log 2>&1 &
 ```
 
+```sh
+sudo apt update
+sudo apt install python3-pip python3-selenium chromium-browser chromium-chromedriver screen
+
+sudo mkdir -p /var/log/usvisa-rescheduler
+sudo chown -R root:root /var/log/usvisa-rescheduler
+sudo chmod 755 /var/log/usvisa-rescheduler
+
+cd /root
+git clone <your-repo-url> usvisa-ca
+cd usvisa-ca
+
+screen -L -Logfile /var/log/usvisa-rescheduler/rescheduler.log -S visa-rescheduler
+
+python3 reschedule.py
+```
+
 ## Caution
 
 It may not always be feasible to reschedule an appointment multiple times. Therefore, it's crucial to use `TEST_MODE = True` for testing purposes and ensure the `LATEST_ACCEPTABLE_DATE` is genuinely acceptable to you.
