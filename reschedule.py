@@ -2,6 +2,7 @@ import re
 import traceback
 from datetime import datetime
 from time import sleep
+from typing import Union, List
 
 import requests
 from selenium import webdriver
@@ -68,7 +69,7 @@ def get_appointment_page(driver: WebDriver) -> None:
 
 def get_available_dates(
     driver: WebDriver, request_tracker: RequestTracker
-) -> list | None:
+) -> Union[List[datetime.date], None]:
     request_tracker.log_retry()
     request_tracker.retry()
     current_url = driver.current_url
@@ -101,7 +102,7 @@ def get_available_dates(
 def reschedule(driver: WebDriver, retryCount: int = 0) -> bool:
     date_request_tracker = RequestTracker(
         retryCount if (retryCount > 0) else DATE_REQUEST_MAX_RETRY,
-        30 * retryCount if (retryCount > 0) else DATE_REQUEST_MAX_TIME
+        DATE_REQUEST_DELAY * retryCount if (retryCount > 0) else DATE_REQUEST_MAX_TIME
     )
     while date_request_tracker.should_retry():
         dates = get_available_dates(driver, date_request_tracker)
