@@ -181,3 +181,11 @@ if __name__ == "__main__":
         sleep(NEW_SESSION_DELAY)
         if rescheduled:
             break
+    gmail = GMail(f"{GMAIL_SENDER_NAME} <{GMAIL_EMAIL}>", GMAIL_APPLICATION_PWD)
+    msg = Message(
+        f"Rescheduler Program Exited",
+        to=f"{RECEIVER_NAME} <{RECEIVER_EMAIL}>",
+        text=f"The rescheduler program has exited on {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}."
+    )
+    gmail.send(msg)
+    gmail.close()
