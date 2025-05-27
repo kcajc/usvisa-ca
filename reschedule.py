@@ -16,6 +16,10 @@ from request_tracker import RequestTracker
 from settings import *
 
 
+def log_message(message: str) -> None:
+    timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    print(f"[{timestamp}] {message}")
+
 def get_chrome_driver() -> WebDriver:
     options = webdriver.ChromeOptions()
     if not SHOW_GUI:
@@ -83,17 +87,17 @@ def get_available_dates(
     try:
         response = requests.get(request_url, headers=request_headers)
     except Exception as e:
-        print("Get available dates request failed: ", e)
+        log_message(f"Get available dates request failed: {e}")
         return None
     if response.status_code != 200:
-        print(f"Failed with status code {response.status_code}")
-        print(f"Response Text: {response.text}")
+        log_message(f"Failed with status code {response.status_code}")
+        log_message(f"Response Text: {response.text}")
         return None
     try:
         dates_json = response.json()
     except:
-        print("Failed to decode json")
-        print(f"Response Text: {response.text}")
+        log_message("Failed to decode json")
+        log_message(f"Response Text: {response.text}")
         return None
     dates = [datetime.strptime(item["date"], "%Y-%m-%d").date() for item in dates_json]
     return dates
@@ -107,7 +111,7 @@ def reschedule(driver: WebDriver, retryCount: int = 0) -> bool:
     while date_request_tracker.should_retry():
         dates = get_available_dates(driver, date_request_tracker)
         if not dates:
-            print("Error occured when requesting available dates")
+            log_message("Error occured when requesting available dates")
             sleep(DATE_REQUEST_DELAY)
             continue
         earliest_available_date = dates[0]
@@ -115,22 +119,18 @@ def reschedule(driver: WebDriver, retryCount: int = 0) -> bool:
             LATEST_ACCEPTABLE_DATE, "%Y-%m-%d"
         ).date()
         if earliest_available_date <= latest_acceptable_date:
-            print(
-                f"{datetime.now().strftime('%H:%M:%S')} FOUND SLOT ON {earliest_available_date}!!!"
-            )
+            log_message(f"FOUND SLOT ON {earliest_available_date}!!!")
             try:
                 if legacy_reschedule(driver, earliest_available_date):
-                    print("SUCCESSFULLY RESCHEDULED!!!")
+                    log_message("SUCCESSFULLY RESCHEDULED!!!")
                     return True
                 return False
             except Exception as e:
-                print("Rescheduling failed: ", e)
+                log_message(f"Rescheduling failed: {e}")
                 traceback.print_exc()
                 continue
         else:
-            print(
-                f"{datetime.now().strftime('%H:%M:%S')} Earliest available date is {earliest_available_date}"
-            )
+            log_message(f"Earliest available date is {earliest_available_date}")
         sleep(DATE_REQUEST_DELAY)
     return False
 
@@ -144,7 +144,7 @@ def reschedule_with_new_session(retryCount: int = DATE_REQUEST_MAX_RETRY) -> boo
             get_appointment_page(driver)
             break
         except Exception as e:
-            print("Unable to get appointment page: ", e)
+            log_message(f"Unable to get appointment page: {e}")
             session_failures += 1
             sleep(FAIL_RETRY_DELAY)
             continue
@@ -158,13 +158,13 @@ def reschedule_with_new_session(retryCount: int = DATE_REQUEST_MAX_RETRY) -> boo
 
 if __name__ == "__main__":
     session_count = 0
-    print("Attempting to reschedule for email: ", USER_EMAIL)
-    print("User Consulate: ", USER_CONSULATE)
-    print("Earliest Acceptable Date: ", EARLIEST_ACCEPTABLE_DATE)
-    print("Latest Acceptable Date: ", LATEST_ACCEPTABLE_DATE)
+    log_message(f"Attempting to reschedule for email: {USER_EMAIL}")
+    log_message(f"User Consulate: {USER_CONSULATE}")
+    log_message(f"Earliest Acceptable Date: {EARLIEST_ACCEPTABLE_DATE}")
+    log_message(f"Latest Acceptable Date: {LATEST_ACCEPTABLE_DATE}")
     while True:
         session_count += 1
-        print(f"Attempting with new session #{session_count}")
+        log_message(f"Attempting with new session #{session_count}")
         rescheduled = reschedule_with_new_session()
         sleep(NEW_SESSION_DELAY)
         if rescheduled:

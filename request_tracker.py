@@ -1,4 +1,5 @@
 import time
+from datetime import datetime
 
 
 class RequestTracker:
@@ -22,4 +23,5 @@ class RequestTracker:
         return True
 
     def log_retry(self):
-        print(f"Session retry: {self.retries}")
+        timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        print(f"[{timestamp}] Session retry: {self.retries}")
