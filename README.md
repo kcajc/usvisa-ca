@@ -40,6 +40,8 @@ sudo cp usvisa-rescheduler.service /etc/systemd/system/
 sudo systemctl daemon-reload
 sudo systemctl enable usvisa-rescheduler
 sudo systemctl start usvisa-rescheduler
+
+python reschedule.py > logs/rescheduler.log 2>&1 &
 ```
 
 ## Caution
