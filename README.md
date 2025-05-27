@@ -7,6 +7,7 @@ A simple Python script for making US visa interview appointments in Canada
 Make sure you have booked an appointment on https://ais.usvisa-info.com/en-ca/.
 
 Install dependencies (Python3 is required):
+
 ```sh
 pip install -r requirements.txt
 ```
@@ -17,7 +18,7 @@ Modify `settings.py` as per the instructions within the script:
 USER_EMAIL = "name@gmail.com"
 USER_PASSWORD = "yourpassword"
 EARLIEST_ACCEPTABLE_DATE = "2024-01-01"  # this is now only used in detecting
-LATEST_ACCEPTABLE_DATE = "2024-03-14" 
+LATEST_ACCEPTABLE_DATE = "2024-03-14"
 USER_CONSULATE = "Toronto"
 ```
 
@@ -31,6 +32,15 @@ See the script in action. Once you're satisfied with its functionality, set `TES
 
 Note `detect_and_notify.py` is no longer maintained.
 
+## Service instructions
+
+```sh
+mkdir -p logs
+sudo cp usvisa-rescheduler.service /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable usvisa-rescheduler
+sudo systemctl start usvisa-rescheduler
+```
 
 ## Caution
 
