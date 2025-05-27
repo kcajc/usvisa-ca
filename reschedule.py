@@ -11,6 +11,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
+from legacy.gmail import GMail, Message
 from legacy_rescheduler import legacy_reschedule
 from request_tracker import RequestTracker
 from settings import *
@@ -125,6 +126,14 @@ def reschedule(driver: WebDriver, retryCount: int = 0) -> bool:
             log_message(f"FOUND SLOT ON {earliest_available_date}!!!")
             try:
                 if legacy_reschedule(driver, earliest_available_date):
+                    gmail = GMail(f"{GMAIL_SENDER_NAME} <{GMAIL_EMAIL}>", GMAIL_APPLICATION_PWD)
+                    msg = Message(
+                        f"Visa Appointment Rescheduled for {earliest_available_date}",
+                        to=f"{RECEIVER_NAME} <{RECEIVER_EMAIL}>",
+                        text=f"Your visa appointment has been successfully rescheduled to {earliest_available_date} at {USER_CONSULATE} consulate."
+                    )
+                    gmail.send(msg)
+                    gmail.close()
                     log_message("SUCCESSFULLY RESCHEDULED!!!")
                     return True
                 return False
