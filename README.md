@@ -48,6 +48,9 @@ python reschedule.py > logs/rescheduler.log 2>&1 &
 sudo apt update
 sudo apt install python3-pip python3-selenium chromium-browser chromium-chromedriver screen
 
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo apt install ./google-chrome-stable_current_amd64.deb
+
 sudo mkdir -p /var/log/usvisa-rescheduler
 sudo chown -R root:root /var/log/usvisa-rescheduler
 sudo chmod 755 /var/log/usvisa-rescheduler
