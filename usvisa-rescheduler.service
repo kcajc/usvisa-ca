@@ -7,7 +7,8 @@ Type=simple
 User=root
 WorkingDirectory=/root/usvisa-ca
 Environment=PATH=/root/venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-ExecStart=/root/venv/bin/python /root/usvisa-ca/reschedule.py
+Environment=PYTHONPATH=/root/usvisa-ca
+ExecStart=/bin/bash -c 'source /root/venv/bin/activate && python /root/usvisa-ca/reschedule.py'
 Restart=no
 StandardOutput=append:/root/usvisa-ca/logs/rescheduler.log
 StandardError=append:/root/usvisa-ca/logs/rescheduler.error.log
