@@ -158,6 +158,10 @@ def reschedule_with_new_session(retryCount: int = DATE_REQUEST_MAX_RETRY) -> boo
 
 if __name__ == "__main__":
     session_count = 0
+    print("Attempting to reschedule for email: ", USER_EMAIL)
+    print("User Consulate: ", USER_CONSULATE)
+    print("Earliest Acceptable Date: ", EARLIEST_ACCEPTABLE_DATE)
+    print("Latest Acceptable Date: ", LATEST_ACCEPTABLE_DATE)
     while True:
         session_count += 1
         print(f"Attempting with new session #{session_count}")
