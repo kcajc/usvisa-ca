@@ -10,9 +10,18 @@ USER_PASSWORD = os.getenv("USER_PASSWORD")
 NUM_PARTICIPANTS = 1
 
 # Say you want an appointment no later than Mar 14, 2024
-# Please strictly follow the YYYY-MM-DD format
+# Please strictly follow the YYYY-MM-DD format for all dates
+
 EARLIEST_ACCEPTABLE_DATE = os.getenv("EARLIEST_ACCEPTABLE_DATE")
 LATEST_ACCEPTABLE_DATE = os.getenv("LATEST_ACCEPTABLE_DATE")
+
+# Date exclusion ranges
+EXCLUSION_DATE_RANGES = []
+for i in range(1, 10):  # Support up to 9 exclusion ranges
+    start = os.getenv(f"EXCLUSION_START_DATE_{i}")
+    end = os.getenv(f"EXCLUSION_END_DATE_{i}")
+    if start and end:
+        EXCLUSION_DATE_RANGES.append((start, end))
 
 # Your consulate's city
 CONSULATES = {

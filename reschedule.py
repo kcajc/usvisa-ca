@@ -119,10 +119,15 @@ def reschedule(driver: WebDriver, retryCount: int = 0) -> bool:
             sleep(DATE_REQUEST_DELAY)
             continue
         earliest_available_date = dates[0]
-        latest_acceptable_date = datetime.strptime(
-            LATEST_ACCEPTABLE_DATE, "%Y-%m-%d"
-        ).date()
-        if earliest_available_date <= latest_acceptable_date:
+        earliest_acceptable_date = datetime.strptime(EARLIEST_ACCEPTABLE_DATE, "%Y-%m-%d").date()
+        latest_acceptable_date = datetime.strptime(LATEST_ACCEPTABLE_DATE, "%Y-%m-%d").date()
+        if earliest_acceptable_date <= earliest_available_date <= latest_acceptable_date:
+            # Check if the earliest available date falls in any of the excluded date ranges
+            for i, (start, end) in enumerate(EXCLUSION_DATE_RANGES, 1):
+                if datetime.strptime(start, "%Y-%m-%d").date() <= earliest_available_date <= datetime.strptime(end, "%Y-%m-%d").date():
+                    log_message(f"UH OH!Date falls in excluded date range: {start} to {end}")
+                    sleep(DATE_REQUEST_DELAY)
+                    continue
             log_message(f"FOUND SLOT ON {earliest_available_date}!!!")
             try:
                 if legacy_reschedule(driver, earliest_available_date):
@@ -174,6 +179,14 @@ if __name__ == "__main__":
     log_message(f"User Consulate: {USER_CONSULATE}")
     log_message(f"Earliest Acceptable Date: {EARLIEST_ACCEPTABLE_DATE}")
     log_message(f"Latest Acceptable Date: {LATEST_ACCEPTABLE_DATE}")
+
+    if EXCLUSION_DATE_RANGES:
+        log_message("Excluded Date Ranges:")
+        for i, (start, end) in enumerate(EXCLUSION_DATE_RANGES, 1):
+            log_message(f"  Range {i}: {start} to {end}")
+    else:
+        log_message("No date ranges excluded")
+
     while True:
         session_count += 1
         log_message(f"Attempting with new session #{session_count}")
