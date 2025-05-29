@@ -125,7 +125,7 @@ def reschedule(driver: WebDriver, retryCount: int = 0) -> bool:
             # Check if the earliest available date falls in any of the excluded date ranges
             for i, (start, end) in enumerate(EXCLUSION_DATE_RANGES, 1):
                 if datetime.strptime(start, "%Y-%m-%d").date() <= earliest_available_date <= datetime.strptime(end, "%Y-%m-%d").date():
-                    log_message(f"UH OH!Date falls in excluded date range: {start} to {end}")
+                    log_message(f"UH OH! Date falls in excluded date range: {start} to {end}")
                     sleep(DATE_REQUEST_DELAY)
                     continue
             log_message(f"FOUND SLOT ON {earliest_available_date}!!!")
