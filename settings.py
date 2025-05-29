@@ -1,6 +1,6 @@
 from dotenv import load_dotenv
 import os
-
+from datetime import datetime
 # Load environment variables
 load_dotenv()
 
@@ -17,11 +17,26 @@ LATEST_ACCEPTABLE_DATE = os.getenv("LATEST_ACCEPTABLE_DATE")
 
 # Date exclusion ranges
 EXCLUSION_DATE_RANGES = []
-for i in range(1, 10):  # Support up to 9 exclusion ranges
-    start = os.getenv(f"EXCLUSION_START_DATE_{i}")
-    end = os.getenv(f"EXCLUSION_END_DATE_{i}")
-    if start and end:
-        EXCLUSION_DATE_RANGES.append((start, end))
+if EARLIEST_ACCEPTABLE_DATE and LATEST_ACCEPTABLE_DATE:
+    try:
+        earliest_acceptable_date = datetime.strptime(EARLIEST_ACCEPTABLE_DATE, "%Y-%m-%d").date()
+        latest_acceptable_date = datetime.strptime(LATEST_ACCEPTABLE_DATE, "%Y-%m-%d").date()
+        
+        for i in range(1, 10):  # Support up to 9 exclusion ranges
+            start = os.getenv(f"EXCLUSION_START_DATE_{i}")
+            end = os.getenv(f"EXCLUSION_END_DATE_{i}")
+            if start and end:
+                try:
+                    exclusion_start_date = datetime.strptime(start, "%Y-%m-%d").date()
+                    exclusion_end_date = datetime.strptime(end, "%Y-%m-%d").date()
+                    if (exclusion_start_date < exclusion_end_date and 
+                        exclusion_start_date > earliest_acceptable_date and 
+                        exclusion_end_date < latest_acceptable_date):
+                        EXCLUSION_DATE_RANGES.append((start, end))
+                except ValueError:
+                    print(f"Invalid date format in exclusion range {start} to {end}")
+    except ValueError:
+        print("Invalid date format in EARLIEST_ACCEPTABLE_DATE or LATEST_ACCEPTABLE_DATE")
 
 # Your consulate's city
 CONSULATES = {
