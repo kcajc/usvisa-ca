@@ -2,25 +2,67 @@
 
 A simple Python script for making US visa interview appointments in Canada
 
-## Setup
+## Features
 
-Make sure you have booked an appointment on https://ais.usvisa-info.com/en-ca/.
+- Automatically checks for available visa interview slots at your selected consulate
+- Supports multiple consulate locations across Canada
+- Configurable date ranges for appointment scheduling
+- Email notifications when appointments are found or rescheduled
+- Support for excluding specific date ranges
+- Headless operation mode for unattended running
+- Test mode for safe testing without actual rescheduling
+- Automatic retry mechanism with configurable delays
+- Support for multiple applicants in a single appointment
 
-Install dependencies (Python3 is required):
+## Prerequisites
+
+- Python 3.x installed
+- An existing US visa appointment booked on https://ais.usvisa-info.com/en-ca/
+- Gmail account for notifications (optional but recommended)
+
+## Installation
+
+1. Clone this repository
+2. Install dependencies:
 
 ```sh
 pip install -r requirements.txt
 ```
 
-Modify `settings.py` as per the instructions within the script:
+Supported Consulate locations:
 
-```python3
-USER_EMAIL = "name@gmail.com"
-USER_PASSWORD = "yourpassword"
-EARLIEST_ACCEPTABLE_DATE = "2024-01-01"  # this is now only used in detecting
-LATEST_ACCEPTABLE_DATE = "2024-03-14"
-USER_CONSULATE = "Toronto"
+```python
+CONSULATES = {
+    "Calgary": 89,
+    "Halifax": 90,
+    "Montreal": 91,
+    "Ottawa": 92,
+    "Quebec": 93,
+    "Toronto": 94,
+    "Vancouver": 95
+} # Only Toronto and Vancouver consulates are verified
 ```
+
+Add a new `.env` file to the root of the project, this file will be used to configure parameters for the script. You can use the following parameters:
+
+```
+USER_EMAIL=""   # The email address for your https://ais.usvisa-info.com/en-ca/niv/users/sign_in account
+USER_PASSWORD=""    # The password for your  https://ais.usvisa-info.com/en-ca/niv/users/sign_in account
+EARLIEST_ACCEPTABLE_DATE="" # The earliest interview date you are looking for
+LATEST_ACCEPTABLE_DATE=""   # The latest acceptable interview date
+USER_CONSULATE="" # Use one of the cosulate names from above
+GMAIL_SENDER_NAME=""    # Name of sender on email
+GMAIL_EMAIL=""  # Sender email account
+GMAIL_APPLICATION_PWD=""    # Use the app password you generated for application -- check https://support.google.com/mail/answer/185833?hl=en
+RECEIVER_NAME=""    # Recipient name
+RECEIVER_EMAIL=""   # Recipient email
+EXCLUSION_START_DATE_1=""   # Start date for first excluded date range
+EXCLUSION_END_DATE_1=""     # End date for first excluded date range
+EXCLUSION_START_DATE_2=""   # Start date for second excluded date range
+EXCLUSION_END_DATE_2=""     # End date for second excluded date range
+```
+
+You can add upto 9 exclusion date ranges. Each date range to be excluded using the syntax `EXCLUSION_START_DATE_{i}` and `EXCLUSION_END_DATE_{i}` where `i` can be replaced by numbers between 1 to 9.
 
 ### Find a slot and book it automatically
 
@@ -31,54 +73,6 @@ python reschedule.py
 See the script in action. Once you're satisfied with its functionality, set `TEST_MODE` to `False` in `settings.py`. For a headless operation, you can also set `SHOW_GUI` to `False` and allow the script to run unattended.
 
 Note `detect_and_notify.py` is no longer maintained.
-
-## Service instructions
-
-```sh
-mkdir -p logs
-sudo cp usvisa-rescheduler.service /etc/systemd/system/
-sudo systemctl daemon-reload
-sudo systemctl enable usvisa-rescheduler
-sudo systemctl start usvisa-rescheduler
-
-python reschedule.py > logs/rescheduler.log 2>&1 &
-```
-
-## VM without Service
-
-```sh
-sudo apt update
-sudo apt install python3-pip python3-selenium chromium-browser chromium-chromedriver screen
-
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-sudo apt install ./google-chrome-stable_current_amd64.deb
-
-sudo mkdir -p /var/log/usvisa-rescheduler
-sudo chown -R root:root /var/log/usvisa-rescheduler
-sudo chmod 755 /var/log/usvisa-rescheduler
-
-cd /root
-git clone <your-repo-url> usvisa-ca
-cd usvisa-ca
-
-screen -L -Logfile /var/log/usvisa-rescheduler/rescheduler.log -S visa-rescheduler
-
-python3 reschedule.py
-```
-
-## Local in background
-
-```sh
-brew install screen
-screen -S visa-rescheduler
-python3 reschedule.py
-```
-
-To manage the screen session:
-Detach from screen: Ctrl+A then D
-Reattach to screen: screen -r visa-rescheduler
-List screen sessions: screen -ls
-Kill screen session: Ctrl+A then K
 
 ## Caution
 
