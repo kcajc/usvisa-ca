@@ -1,4 +1,5 @@
 import time
+from datetime import datetime
 
 
 class RequestTracker:
@@ -13,13 +14,14 @@ class RequestTracker:
 
     def should_retry(self):
         if self.retries > self.max_retries:
-            print("Max retries reached")
+            print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] Max retries reached")
             return False
         elapsed_time = time.time() - self.start_time
         if elapsed_time > self.max_time:
-            print("Max time reached")
+            print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] Max time reached")
             return False
         return True
 
     def log_retry(self):
-        print(f"Session retry: {self.retries}")
+        timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        print(f"[{timestamp}] Session retry: {self.retries}")

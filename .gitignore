@@ -161,3 +161,7 @@ cython_debug/
 
 # local dev
 local.py
+
+# Logs
+logs/
+*.log
