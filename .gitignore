@@ -165,4 +165,3 @@ local.py
 # Logs
 logs/
 *.log
-/.vs
