@@ -23,7 +23,7 @@ A simple Python script for making US visa interview appointments in Canada
 ## Prerequisites
 
 - Python 3.x installed
-- An existing US visa appointment booked on https://ais.usvisa-info.com/en-ca/
+- An existing US visa appointment booked on <https://ais.usvisa-info.com/en-ca/>
 - Gmail account for notifications (optional but recommended)
 
 ## Installation
@@ -31,13 +31,13 @@ A simple Python script for making US visa interview appointments in Canada
 1. Clone this repository
 2. Install dependencies:
 
-```sh
+```
 pip install -r requirements.txt
 ```
 
 Supported Consulate locations:
 
-```python
+```
 CONSULATES = {
     "Calgary": 89,
     "Halifax": 90,
@@ -49,30 +49,61 @@ CONSULATES = {
 } # Only Toronto and Vancouver consulates are verified
 ```
 
-Add a new `.env` file to the root of the project, this file will be used to configure parameters for the script. You can use the following parameters:
+Add a new `.env` file to the root of the project, this file will be used to configure parameters for the script.
+
+### Required fields
+
+These **must** be set, or the script will fail on startup / cannot log in:
+
+| Variable | Description |
+|---|---|
+| `USER_EMAIL` | The email address for your <https://ais.usvisa-info.com/en-ca/niv/users/sign_in> account |
+| `USER_PASSWORD` | The password for your <https://ais.usvisa-info.com/en-ca/niv/users/sign_in> account |
+| `EARLIEST_ACCEPTABLE_DATE` | The earliest interview date you are looking for (`YYYY-MM-DD`) |
+| `LATEST_ACCEPTABLE_DATE` | The latest acceptable interview date (`YYYY-MM-DD`) |
+| `USER_CONSULATE` | Use one of the consulate names listed above. Only Toronto and Vancouver are verified |
+
+### Optional fields
+
+These can be left blank; the script will still run and simply skip the related feature.
+
+| Variable | Description |
+|---|---|
+| `GMAIL_SENDER_NAME` | Name of sender on email notifications |
+| `GMAIL_EMAIL` | Sender Gmail account |
+| `GMAIL_APPLICATION_PWD` | App password for the sender account — see [Google's app password guide](https://support.google.com/mail/answer/185833?hl=en) |
+| `RECEIVER_NAME` | Recipient name for notifications |
+| `RECEIVER_EMAIL` | Recipient email for notifications |
+| `EXCLUSION_START_DATE_{i}` / `EXCLUSION_END_DATE_{i}` | Start/end of an excluded date range, where `i` is `1`–`9` (up to 9 ranges). Each pair must be provided together |
+| `DEBUG` / `LOG_LEVEL` | Set `DEBUG=1` (or `LOG_LEVEL=DEBUG`) to enable verbose debug logging — see [Debug logging](#debug-logging) below |
+
+> **Note on Gmail fields:** `GMAIL_SENDER_NAME`, `GMAIL_EMAIL`, `GMAIL_APPLICATION_PWD`, `RECEIVER_NAME`, and `RECEIVER_EMAIL` are all-or-nothing — if any of the five is missing, email notifications are skipped entirely (with a warning logged) and rescheduling still proceeds normally.
+
+Example `.env`:
 
 ```
-USER_EMAIL=""   # The email address for your https://ais.usvisa-info.com/en-ca/niv/users/sign_in account
-USER_PASSWORD=""    # The password for your  https://ais.usvisa-info.com/en-ca/niv/users/sign_in account
-EARLIEST_ACCEPTABLE_DATE="" # The earliest interview date you are looking for
-LATEST_ACCEPTABLE_DATE=""   # The latest acceptable interview date
-USER_CONSULATE="" # Use one of the cosulate names from above
-GMAIL_SENDER_NAME=""    # Name of sender on email
-GMAIL_EMAIL=""  # Sender email account
-GMAIL_APPLICATION_PWD=""    # Use the app password you generated for application -- check https://support.google.com/mail/answer/185833?hl=en
-RECEIVER_NAME=""    # Recipient name
-RECEIVER_EMAIL=""   # Recipient email
-EXCLUSION_START_DATE_1=""   # Start date for first excluded date range
-EXCLUSION_END_DATE_1=""     # End date for first excluded date range
-EXCLUSION_START_DATE_2=""   # Start date for second excluded date range
-EXCLUSION_END_DATE_2=""     # End date for second excluded date range
+USER_EMAIL=""   # required
+USER_PASSWORD=""    # required
+EARLIEST_ACCEPTABLE_DATE="" # required
+LATEST_ACCEPTABLE_DATE=""   # required
+USER_CONSULATE="" # required
+GMAIL_SENDER_NAME=""    # optional
+GMAIL_EMAIL=""  # optional
+GMAIL_APPLICATION_PWD=""    # optional
+RECEIVER_NAME=""    # optional
+RECEIVER_EMAIL=""   # optional
+EXCLUSION_START_DATE_1=""   # optional
+EXCLUSION_END_DATE_1=""     # optional
+EXCLUSION_START_DATE_2=""   # optional
+EXCLUSION_END_DATE_2=""     # optional
+DEBUG="1"   # optional, enables debug logging
 ```
 
-You can add upto 9 exclusion date ranges. Each date range to be excluded using the syntax `EXCLUSION_START_DATE_{i}` and `EXCLUSION_END_DATE_{i}` where `i` can be replaced by numbers between 1 to 9.
+You can add up to 9 exclusion date ranges. Each date range to be excluded using the syntax `EXCLUSION_START_DATE_{i}` and `EXCLUSION_END_DATE_{i}` where `i` can be replaced by numbers between 1 to 9.
 
 ### Find a slot and book it automatically
 
-```sh
+```
 python reschedule.py
 ```
 
