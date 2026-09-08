@@ -1,0 +1,15 @@
+services:
+  usvisa-ca:
+    image: ghcr.io/kcajc/usvisa-ca:latest
+    restart: unless-stopped
+    user: "${PUID:-1000}:${PGID:-1000}"
+    env_file:
+      - .env
+    environment:
+      COMPLETION_FILE: /data/state/reschedule-complete
+      DIAGNOSTICS_DIR: /data/diagnostics
+      IDLE_AFTER_SUCCESS: "true"
+      TZ: America/Vancouver
+    volumes:
+      - ./data:/data
+    shm_size: 512m
